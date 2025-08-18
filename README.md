@@ -25,10 +25,30 @@ Run the following command to initialize the required data:
 export VERSION=v3.21.2 # change it to the version you want to use
 export DATA_DIR=./data # change it to the directory you want to store the data
 
-docker run --rm -it -v ${DATA_DIR}:/root ghcr.io/imsingee/protonmail-bridge-docker:${VERSION} init
+docker run --rm -it -v ${DATA_DIR}:/root ghcr.io/imsingee/protonmail-bridge-docker:${VERSION} bash
 ```
 
-Wait for the bridge to startup, then you will see a prompt appear for [Proton Mail Bridge interactive shell](https://proton.me/support/bridge-cli-guide). Use the `login` command and follow the instructions to add your account into the bridge. Then use `info` to see the configuration information (username and password). After that, use `exit` to exit the bridge. You may need `CTRL+C` to exit the docker entirely.
+Then, you will enter the bash shell of the container.
+
+Run the following command to initialize the bridge:
+
+```bash
+bash /protonmail/entrypoint.sh init
+```
+
+This will initialize some required data for the bridge and then open the [interactive shell](https://proton.me/support/bridge-cli-guide) for the bridge.
+
+Generally, you should use the `login` command and follow the instructions to add your account into the bridge. Then use `info` to see the configuration information (username and password). After that, use `exit` to exit the bridge. You may need `CTRL+C` to exit the docker entirely.
+
+The `init` command should only be run once. After that, if you want to access the bridge cli, you can use the following command:
+
+```bash
+/protonmail/proton-bridge --cli
+```
+
+> [!TIP]
+> If you have used Protonmail for a while, the sync process may be very slow (expect more than one day is possible). To avoid stopping the syncing process unintentionally, I suggest you run the `init` command in a tmux session.
+
 
 ## Run
 

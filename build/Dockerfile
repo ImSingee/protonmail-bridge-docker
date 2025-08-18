@@ -16,7 +16,7 @@ LABEL maintainer="Bryan <opensource@singee.me>"
 
 # Install dependencies and protonmail bridge
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends socat pass libsecret-1-0 ca-certificates \
+    && apt-get install -y --no-install-recommends socat pass libsecret-1-0 ca-certificates tmux \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy bash scripts
@@ -27,4 +27,5 @@ COPY --from=build /build/bridge /protonmail/
 COPY --from=build /build/proton-bridge /protonmail/
 COPY --from=build /build/vault-editor /protonmail/
 
-ENTRYPOINT ["bash", "/protonmail/entrypoint.sh"]
+ENTRYPOINT []
+CMD ["bash", "/protonmail/entrypoint.sh"]
