@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y build-essential libsecret-1-dev
 # Build
 ADD https://github.com/ProtonMail/proton-bridge.git#${version} /build/
 WORKDIR /build/
-RUN sed -i 's/127\.0\.0\.1/0.0.0.0/g' proton-bridge/internal/constants/constants.go
+RUN sed -i 's/127\.0\.0\.1/0.0.0.0/g' internal/constants/constants.go
 RUN make build-nogui vault-editor
 
 FROM debian:bookworm
