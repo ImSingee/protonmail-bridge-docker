@@ -11,6 +11,9 @@ on:
       - update-check.py
   schedule:
   - cron: '0 0 * * *'  # runs everyday at midnight
+  
+permissions:
+  contents: write
 
 jobs:
   check:
@@ -19,6 +22,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
       with:
-        token: ${{ secrets.PERSONAL_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Check Update
       run: python3 update-check.py ${{ github.event_name == 'pull_request' }}
