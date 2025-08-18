@@ -4,7 +4,6 @@ set -ex
 
 # Initialize
 if [[ $1 == init ]]; then
-
     # Initialize pass
     gpg --generate-key --batch /protonmail/gpgparams
     pass init pass-key
@@ -17,13 +16,8 @@ if [[ $1 == init ]]; then
 
     # Login
     /protonmail/proton-bridge --cli $@
-
 else
-
-    # Start protonmail
-    # Fake a terminal, so it does not quit because of EOF...
-    rm -f faketty
-    mkfifo faketty
-    cat faketty | /protonmail/proton-bridge --cli $@
-
+    tmux new-session -d -s proton "/protonmail/proton-bridge --cli $@; exec bash"
+    tmux pipe-pane -t proton -o 'cat > /proc/1/fd/1'
+    sleep infinity
 fi

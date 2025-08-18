@@ -16,7 +16,7 @@ LABEL maintainer="Bryan <opensource@singee.me>"
 
 # Install dependencies and protonmail bridge
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends socat pass libsecret-1-0 ca-certificates tmux \
+    && apt-get install -y --no-install-recommends pass libsecret-1-0 ca-certificates tmux \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy bash scripts

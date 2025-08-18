@@ -61,6 +61,12 @@ To run the container, use the following command.
 docker run -d --name=protonmail-bridge -v ${DATA_DIR}:/root -p 1025:1025 -p 1143:1143 --restart=unless-stopped ghcr.io/imsingee/protonmail-bridge-docker:${VERSION}
 ```
 
+The bridge will be running in a tmux session. You can use the following command to attach to the session:
+
+```bash
+docker exec -it protonmail-bridge tmux attach -t proton
+```
+
 ## Bridge CLI Guide
 
 The initialization step exposes the bridge CLI so you can do things like switch between combined and split mode, change proxy, etc. The [official guide](https://protonmail.com/support/knowledge-base/bridge-cli-guide/) gives more information on to use the CLI.
