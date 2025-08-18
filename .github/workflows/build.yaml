@@ -57,7 +57,7 @@ jobs:
           context: ./build
           build-args: |
             version=${{ env.version }}
-          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7,linux/riscv64
+          platforms: linux/amd64,linux/arm64/v8,linux/arm/v7
           labels: ${{ steps.meta.outputs.labels }}
           tags: ${{ steps.meta.outputs.tags }}
           push: true

@@ -1,10 +1,9 @@
-# The build image could be golang, but it currently does not support riscv64. Only debian:bookworm does, at the time of writing.
-FROM debian:bookworm AS build
+FROM golang:1-bookworm AS build
 
 ARG version
 
 # Install dependencies
-RUN apt-get update && apt-get install -y golang build-essential libsecret-1-dev
+RUN apt-get update && apt-get install -y build-essential libsecret-1-dev
 
 # Build
 ADD https://github.com/ProtonMail/proton-bridge.git#${version} /build/
