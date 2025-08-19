@@ -6,15 +6,11 @@ def git(command):
 
 release = requests.get("https://api.github.com/repos/protonmail/proton-bridge/releases/latest").json()
 version = release['tag_name']
-deb = [asset for asset in release ['assets'] if asset['name'].endswith('.deb')][0]['browser_download_url']
 
 print(f"Latest release is: {version}")
 
 with open("VERSION", 'w') as f:
   f.write(version)
-
-with open("deb/PACKAGE", 'w') as f:
-  f.write(deb)
 
 git("config --local user.name 'GitHub Actions'")
 git("config --local user.email 'actions@github.com'")
