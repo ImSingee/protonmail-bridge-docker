@@ -25,7 +25,7 @@ Run the following command to initialize the required data:
 export VERSION=v3.21.2 # change it to the version you want to use
 export DATA_DIR=./data # change it to the directory you want to store the data
 
-docker run --rm -it -v ${DATA_DIR}:/root ghcr.io/imsingee/protonmail-bridge-docker:${VERSION} bash
+docker run --rm -it -v ${DATA_DIR}:/root ghcr.io/imsingee/protonmail-bridge:${VERSION} bash
 ```
 
 Then, you will enter the bash shell of the container.
@@ -58,7 +58,7 @@ To run the container, use the following command.
 # export VERSION=...
 # export DATA_DIR=...
 
-docker run -d --name=protonmail-bridge -v ${DATA_DIR}:/root -p 1025:1025 -p 1143:1143 --restart=unless-stopped ghcr.io/imsingee/protonmail-bridge-docker:${VERSION}
+docker run -d --name=protonmail-bridge -v ${DATA_DIR}:/root -p 1025:1025 -p 1143:1143 --restart=unless-stopped ghcr.io/imsingee/protonmail-bridge:${VERSION}
 ```
 
 The bridge will be running in a tmux session. You can use the following command to attach to the session:

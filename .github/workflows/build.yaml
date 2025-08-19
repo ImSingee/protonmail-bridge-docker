@@ -38,7 +38,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/imsingee/protonmail-bridge-docker
+          images: ghcr.io/imsingee/protonmail-bridge
           tags: |
               type=ref,event=branch
               type=sha
