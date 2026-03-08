@@ -2,8 +2,20 @@ FROM golang:1-bookworm AS build
 
 ARG version
 
-# Install dependencies
-RUN apt-get update && apt-get install -y build-essential libsecret-1-dev
+# Install build dependencies
+# NOTE: Proton Bridge uses CGO and links against libsecret + libfido2 + libcbor + openssl.
+# These *-dev packages are required at build time.
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    ca-certificates \
+    curl \
+    git \
+    zip unzip tar \
+    pkg-config \
+    libsecret-1-dev \
+    libfido2-dev \
+    libcbor-dev \
+    libssl-dev
 
 # Build
 ADD https://github.com/ProtonMail/proton-bridge.git#${version} /build/
@@ -16,7 +28,14 @@ LABEL maintainer="Bryan <opensource@singee.me>"
 
 # Install dependencies and protonmail bridge
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends pass libsecret-1-0 ca-certificates tmux \
+    && apt-get install -y --no-install-recommends \
+        pass \
+        libsecret-1-0 \
+        libfido2-1 \
+        libcbor0.8 \
+        libssl3 \
+        ca-certificates \
+        tmux \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy bash scripts
