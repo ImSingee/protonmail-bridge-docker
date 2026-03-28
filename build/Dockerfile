@@ -20,7 +20,8 @@ RUN apt-get update && apt-get install -y \
 # Build
 ADD https://github.com/ProtonMail/proton-bridge.git#${version} /build/
 WORKDIR /build/
-RUN sed -i 's/127\.0\.0\.1/0.0.0.0/g' internal/constants/constants.go
+RUN sed -i 's/127\.0\.0\.1/0.0.0.0/g' internal/constants/constants.go \
+    && sed -i '/Check for updates when triggered\./,/defer bridge.goUpdate()/c\\\t// Disable background update checks in container builds.\\\n\tbridge.goUpdate = func() {}' internal/bridge/bridge.go
 RUN make build-nogui vault-editor
 
 FROM debian:bookworm
